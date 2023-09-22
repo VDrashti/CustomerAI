@@ -44,56 +44,56 @@ def Demand():
     
     # st.markdown('<h1 style="color: #00568D; font-size: 28px;">Demand Prediction Insights</h1>', unsafe_allow_html=True)
     # st.plotly_chart(fig, use_container_width=True)
-        with prods:
-        col1, col2= st.columns([2.1,1.1])
-            with col1:
+    with prods:
+    col1, col2= st.columns([2.1,1.1])
+        with col1:
                 
             # Forecasting the Next Week Prediction
-                st.markdown('<h1 style="color: #00568D; font-size: 28px;">Next Week Sales Forecast</h1>', unsafe_allow_html=True)
-                frdf=DF[["CATEGORY","NEXT_WEEK_PREDICTION"]]
-                frdf = pd.DataFrame(frdf.groupby(frdf["CATEGORY"])["NEXT_WEEK_PREDICTION"].sum()).reset_index()
-                frdf.rename(columns={'NEXT_WEEK_PREDICTION': 'UNITS SOLD'}, inplace=True)
+            st.markdown('<h1 style="color: #00568D; font-size: 28px;">Next Week Sales Forecast</h1>', unsafe_allow_html=True)
+            frdf=DF[["CATEGORY","NEXT_WEEK_PREDICTION"]]
+            frdf = pd.DataFrame(frdf.groupby(frdf["CATEGORY"])["NEXT_WEEK_PREDICTION"].sum()).reset_index()
+            frdf.rename(columns={'NEXT_WEEK_PREDICTION': 'UNITS SOLD'}, inplace=True)
 
             # Creating Bar chart to show Next Week Prediction
-                fig = px.bar(frdf, x = "CATEGORY", y = "UNITS SOLD",
+            fig = px.bar(frdf, x = "CATEGORY", y = "UNITS SOLD",
                             template = "seaborn")
-                st.plotly_chart(fig,use_container_width=True, height = 200)
+            t.plotly_chart(fig,use_container_width=True, height = 200)
 
 
-            with col2:
+        with col2:
                 # Creating Seasonal Analysis on Historical data
-                final_df['WEEK'] = pd.to_datetime(final_df['WEEK'])
-                final_df["MONTH_YEAR"] = final_df["WEEK"].dt.month
-                def condition(x):
-                    if x in [12,1,2]:
-                        return 'Winter'
-                    elif x in [3,4,5]:
-                        return 'Spring'
-                    elif x in [6,7,8]:
-                        return 'Summer'
-                    elif x in [9,10,11]:
-                        return 'Fall'
+            final_df['WEEK'] = pd.to_datetime(final_df['WEEK'])
+            final_df["MONTH_YEAR"] = final_df["WEEK"].dt.month
+            def condition(x):
+                if x in [12,1,2]:
+                    return 'Winter'
+                elif x in [3,4,5]:
+                    return 'Spring'
+                elif x in [6,7,8]:
+                    return 'Summer'
+                elif x in [9,10,11]:
+                    return 'Fall'
 
-                final_df['SEASON'] = final_df["MONTH_YEAR"].apply(condition)
-                sndf = pd.DataFrame(final_df.groupby(final_df["SEASON"])["UNITS_SOLD"].sum()).reset_index()
-                st.markdown('<h1 style="color: #00568D; font-size: 28px;">Seasonal Analysis</h1>', unsafe_allow_html=True)
+            final_df['SEASON'] = final_df["MONTH_YEAR"].apply(condition)
+            sndf = pd.DataFrame(final_df.groupby(final_df["SEASON"])["UNITS_SOLD"].sum()).reset_index()
+            st.markdown('<h1 style="color: #00568D; font-size: 28px;">Seasonal Analysis</h1>', unsafe_allow_html=True)
 
-                # Creating Bar chart to show Seasonal Analysis
-                fig2 = px.bar(sndf, x = "SEASON", y="UNITS_SOLD", labels = {"UNITS_SOLD": "UNITS SOLD"},height=450, width = 1000,template="gridon")
-                st.plotly_chart(fig2,use_container_width=True,height=1000)
+            # Creating Bar chart to show Seasonal Analysis
+            fig2 = px.bar(sndf, x = "SEASON", y="UNITS_SOLD", labels = {"UNITS_SOLD": "UNITS SOLD"},height=450, width = 1000,template="gridon")
+            st.plotly_chart(fig2,use_container_width=True,height=1000)
 
         
-        final_df['WEEK'] = final_df['WEEK'].dt.strftime('%m/%d/%Y')
-        # Create a line chart for historical data
-        chart = alt.Chart(final_df).mark_line().encode(
-                    x=alt.X('WEEK:O', title='WEEK', sort='-x'),
-                    y=alt.Y('UNITS_SOLD:Q',title='UNTS SOLD'),
-                    tooltip=['WEEK','UNITS_SOLD']
-                ).properties(
-                    width=1000,
-                    height=480,
-                    #title='Unit Sold vs. Week'
-                )
-        st.markdown(f'<h1 style="color: #00568D; font-size: 28px;">Current Sales for Category: {category_selection}</h1>', unsafe_allow_html=True)
-        st.altair_chart(chart, use_container_width=True) 
-        return 0
+    final_df['WEEK'] = final_df['WEEK'].dt.strftime('%m/%d/%Y')
+    # Create a line chart for historical data
+    chart = alt.Chart(final_df).mark_line().encode(
+                x=alt.X('WEEK:O', title='WEEK', sort='-x'),
+                y=alt.Y('UNITS_SOLD:Q',title='UNTS SOLD'),
+                tooltip=['WEEK','UNITS_SOLD']
+            ).properties(
+                width=1000,
+                height=480,
+                #title='Unit Sold vs. Week'
+            )
+    st.markdown(f'<h1 style="color: #00568D; font-size: 28px;">Current Sales for Category: {category_selection}</h1>', unsafe_allow_html=True)
+    st.altair_chart(chart, use_container_width=True) 
+    return 0
