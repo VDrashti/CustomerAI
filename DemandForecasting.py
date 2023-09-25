@@ -39,7 +39,7 @@ def Demand():
         final_df=DF.loc[DF["CATEGORY"]==category_selection]
         
         result = final_df[["STOCK_CODE","DEPARTMENT","CATEGORY","STOCK_NAME","UNITS_SOLD_FOR_WEEK1","UNITS_SOLD_FOR_WEEK2","UNITS_SOLD_FOR_WEEK3","NEXT_WEEK_PREDICTION"]]
-        fig = go.Figure(data=[go.Table(columnwidth=[1.2,2,2,2.4,2,2,2,2],header=dict(values=("<b>STOCK CODE<b>","<b>DEPARTMENT<b>","<b>CATEGORY<b>","<b>STOCK NAME<b>","<b>UNITS SOLD WEEK1<b>","<b>UNITS SOLD WEEK2<b>","<b>UNITS SOLD WEEK3<b>","<b>NEXT WEEK PREDICTION<b>"), fill_color='#00568D', font_color="#ffffff", align=['center'], line_color='#ffffff', font_size = 13,height=35),cells=dict(values=[result.STOCK_CODE,result.DEPARTMENT,result.CATEGORY,result.STOCK_NAME,result.LEAD_W1,result.LEAD_W2,result.LEAD_W3,result.NEXT_WEEK_PREDICTION],fill_color = [['white','lightgrey']*3200], align=['left'], font_size = 12))])
+        fig = go.Figure(data=[go.Table(columnwidth=[1.2,2,2,2.4,2,2,2,2],header=dict(values=("<b>STOCK CODE<b>","<b>DEPARTMENT<b>","<b>CATEGORY<b>","<b>STOCK NAME<b>","<b>UNITS SOLD WEEK1<b>","<b>UNITS SOLD WEEK2<b>","<b>UNITS SOLD WEEK3<b>","<b>NEXT WEEK PREDICTION<b>"), fill_color='#00568D', font_color="#ffffff", align=['center'], line_color='#ffffff', font_size = 13,height=35),cells=dict(values=[result.STOCK_CODE,result.DEPARTMENT,result.CATEGORY,result.STOCK_NAME,result.UNITS_SOLD_FOR_WEEK1,result.UNITS_SOLD_FOR_WEEK2,result.UNITS_SOLD_FOR_WEEK3,result.NEXT_WEEK_PREDICTION],fill_color = [['white','lightgrey']*3200], align=['left'], font_size = 12))])
         
         fig.update_layout(autosize=False,width=998,height=350,margin=dict(l=0,r=0,b=0,t=0,pad=4), paper_bgcolor="#ffffff"
                 )
