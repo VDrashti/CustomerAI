@@ -33,7 +33,9 @@ def Demand():
 
         category = np.sort(DF['CATEGORY'].unique()).tolist()
         category_selection = col_CATE.selectbox('Category', category,index=0)
-        '<style>.stSelectbox {box-shadow: 0px 5px 12px #D9DEE5;border-radius: 2px, background:#ffffff;}</style>'
+        '<style>.stSelectbox {border-radius: 2px, background:#ffffff;}</style>'
+        with col3:
+            '<style>.stSelectbox {border-radius: 2px, background:#ffffff;}</style>'
 
         
     
