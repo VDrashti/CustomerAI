@@ -26,7 +26,7 @@ def Demand():
         DF=RESULT
         DF['WEEK'] = pd.to_datetime(DF['WEEK'])
         DF['WEEK'] = DF['WEEK'].dt.strftime('%m/%d/%Y')
-        col_DEPA, col_CATE, col3 = st.columns([0.2,0.2,3])
+        col_DEPA, col_CATE, col3 = st.columns([1,1,3])
         department = np.sort(RESULT['DEPARTMENT'].unique()).tolist()
         dep_selection1 = col_DEPA.selectbox('Department', department,index=0)
         DF = RESULT.loc[RESULT["DEPARTMENT"]==dep_selection1]  
