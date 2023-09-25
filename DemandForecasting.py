@@ -80,7 +80,7 @@ def Demand():
                 st.markdown('<h1 style="color: #00568D; font-size: 28px;">Seasonal Analysis</h1>', unsafe_allow_html=True)
 
                 # Creating Bar chart to show Seasonal Analysis
-                fig2 = px.bar(sndf, x = "SEASON", y="UNITS_SOLD", labels = {"UNITS_SOLD": "UNITS SOLD"},height=450, width = 1000,template="gridon")
+                fig2 = px.bar(sndf, x = "SEASON", y="UNITS_SOLD", labels = {"UNITS_SOLD": "UNITS SOLD"},height=450, width = 500,template="gridon")
                 st.plotly_chart(fig2,height=1000,width=800)
 
         
