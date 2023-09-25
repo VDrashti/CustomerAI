@@ -81,7 +81,7 @@ def Demand():
 
                 # Creating Bar chart to show Seasonal Analysis
                 fig2 = px.bar(sndf, x = "SEASON", y="UNITS_SOLD", labels = {"UNITS_SOLD": "UNITS SOLD"},height=450, width = 1000,template="gridon")
-                st.plotly_chart(fig2,use_container_width=True,height=1000,width=1000)
+                st.plotly_chart(fig2,height=1000,width=1000)
 
         
         final_df['WEEK'] = final_df['WEEK'].dt.strftime('%m/%d/%Y')
