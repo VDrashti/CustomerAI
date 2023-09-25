@@ -14,8 +14,7 @@ def Pricing():
     # Keep only the most recent week rows for each unique "STOCK_CODE"
     RESULT = RESULT.drop_duplicates(subset="STOCK_CODE")
 
-    # with open('style_sum.css') as f:
-    #     st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
+   
 
     prods = st.container()
     upper_panel = st.container()
