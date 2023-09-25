@@ -14,14 +14,14 @@ def Pricing():
     # Keep only the most recent week rows for each unique "STOCK_CODE"
     RESULT = RESULT.drop_duplicates(subset="STOCK_CODE")
 
-    with open('style_sum.css') as f:
-        st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
+    # with open('style_sum.css') as f:
+    #     st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
     prods = st.container()
     upper_panel = st.container()
 
     with upper_panel:
-        col_DEPA, col_CATE = st.columns([1,1])
+        col_DEPA, col_CATE,CO1 = st.columns([1,1,4])
         department = np.sort(RESULT['DEPARTMENT'].unique()).tolist()
         dep_selection = col_DEPA.selectbox('DEPARTMENT', department,index=0)
         DF = RESULT.loc[RESULT["DEPARTMENT"]==dep_selection]  
@@ -40,8 +40,8 @@ def Pricing():
         # Modify the 'WEEK' column to format it as 'MM/DD/YYYY'
         DF['WEEK'] = DF['WEEK'].dt.strftime('%m/%d/%Y')
 
-        result = final_df[["STOCK_CODE","DEPARTMENT","CATEGORY","STOCK_NAME","LEAD_UP_W4","LEAD_UP_W5","LEAD_UP_W6","NEXT_WEEK_PREDICTION"]]
-        fig = go.Figure(data=[go.Table(columnwidth=[1.4,2,1.5,2.4,1.8,1.8,1.8,2],header=dict(values=("<b>STOCK CODE<b>","<b>DEPARTMENT<b>","<b>CATEGORY<b>","<b>STOCK NAME<b>","<b>UNIT PRICE LEAD_W4<b>","<b>UNIT PRICE LEAD_W5<b>","<b>UNIT PRICE LEAD_W6<b>","<b>NEXT WEEK PREDICTION<b>"), fill_color='#00568D', font_color="#ffffff", align=['center'], line_color='#ffffff', font_size = 13,height=35),cells=dict(values=[result.STOCK_CODE,result.DEPARTMENT,result.CATEGORY,result.STOCK_NAME,result.LEAD_UP_W4,result.LEAD_UP_W5,result.LEAD_UP_W6,result.NEXT_WEEK_PREDICTION],fill_color = [['white','lightgrey']*3200], align=['left'], font_size = 12))])
+        result = final_df[["STOCK_CODE","DEPARTMENT","CATEGORY","STOCK_NAME","UNIT_PRICE_FOR_WEEK1","UNIT_PRICE_FOR_WEEK2","UNIT_PRICE_FOR_WEEK3","NEXT_WEEK_PREDICTION"]]
+        fig = go.Figure(data=[go.Table(columnwidth=[1.4,2,1.5,2.4,1.8,1.8,1.8,2],header=dict(values=("<b>STOCK CODE<b>","<b>DEPARTMENT<b>","<b>CATEGORY<b>","<b>STOCK NAME<b>","<b>UNIT PRICE LEAD_W1<b>","<b>UNIT PRICE LEAD_W2<b>","<b>UNIT PRICE LEAD_W3<b>","<b>NEXT WEEK PREDICTION<b>"), fill_color='#00568D', font_color="#ffffff", align=['center'], line_color='#ffffff', font_size = 13,height=35),cells=dict(values=[result.STOCK_CODE,result.DEPARTMENT,result.CATEGORY,result.STOCK_NAME,result.UNIT_PRICE_FOR_WEEK1,result.UNIT_PRICE_FOR_WEEK2,result.UNIT_PRICE_FOR_WEEK3,result.NEXT_WEEK_PREDICTION],fill_color = [['white','lightgrey']*3200], align=['left'], font_size = 12))])
 
         fig.update_layout(autosize=False,width=998,height=350,margin=dict(l=0,r=0,b=0,t=0,pad=4), paper_bgcolor="#ffffff")
 
