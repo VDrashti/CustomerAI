@@ -43,117 +43,12 @@ def Demand():
         final_df=DF.loc[DF["CATEGORY"]==category_selection]
         
         result = final_df[["STOCK_CODE","DEPARTMENT","CATEGORY","STOCK_NAME","LEAD_W1","LEAD_W2","LEAD_W3","NEXT_WEEK_PREDICTION"]]
-
- 
-
-       
-
- 
-
-        column_to_highlight = "DEPARTMENT"  # Replace with the column you want to highlight
-
- 
-
-# Create a list to store background colors for each cell in the column
-
-        cell_fill_colors = [['white','lightgrey'],['lightgrey'],['lightgrey'],['white','lightgrey'],['white','lightgrey'],['white','lightgrey'],['white','lightgrey'],'#3e5b8a']
-
- 
-
-        # Iterate through the rows and columns, and set the background color for the specified column
-
-        for i in range(len(result[column_to_highlight])):
-
-            row_colors = ['white', 'lightgrey'] * len(result[column_to_highlight])
-
-            cell_fill_colors.append(row_colors)
-
- 
-
-        # Create the table trace with the specified column highlighted
-
-        fig = go.Figure(data=[
-
-            go.Table(
-
-                columnwidth=[1.2, 2, 2, 2.4, 2, 2, 2, 2],
-
-                header=dict(
-
-                    values=["<b>STOCK CODE<b>", "<b>DEPARTMENT<b>", "<b>CATEGORY<b>", "<b>STOCK NAME<b>", "<b>UNITS SOLD LEAD_W1<b>",
-
-                            "<b>UNITS SOLD LEAD_W2<b>", "<b>UNITS SOLD LEAD_W3<b>", "<b>NEXT WEEK PREDICTION<b>"],
-
-                    fill_color='#00568D',
-
-                    font_color="#ffffff",
-
-                    align=['center'],
-
-                    line_color='#ffffff',
-
-                    font_size=13,
-
-                    height=35
-
-                ),
-
-                cells=dict(
-
-                    values=[
-
-                        result["STOCK_CODE"],
-
-                        result["DEPARTMENT"],
-
-                        result["CATEGORY"],
-
-                        result["STOCK_NAME"],
-
-                        result["LEAD_W1"],
-
-                        result["LEAD_W2"],
-
-                        result["LEAD_W3"],
-
-                        result["NEXT_WEEK_PREDICTION"]
-
-                    ],
-
-                    fill_color=cell_fill_colors,  # Set the background colors for cells
-
-                    align=['left'],
-
-                    font_size=12
-
+        fig = go.Figure(data=[go.Table(columnwidth=[1.2,2,2,2.4,2,2,2,2],header=dict(values=("<b>STOCK CODE<b>","<b>DEPARTMENT<b>","<b>CATEGORY<b>","<b>STOCK NAME<b>","<b>UNITS SOLD WEEK1<b>","<b>UNITS SOLD WEEK2<b>","<b>UNITS SOLD WEEK3<b>","<b>NEXT WEEK PREDICTION<b>"), fill_color='#00568D', font_color="#ffffff", align=['center'], line_color='#ffffff', font_size = 13,height=35),cells=dict(values=[result.STOCK_CODE,result.DEPARTMENT,result.CATEGORY,result.STOCK_NAME,result.LEAD_W1,result.LEAD_W2,result.LEAD_W3,result.NEXT_WEEK_PREDICTION],fill_color = [['white','lightgrey']*3200], align=['left'], font_size = 12))])
+        
+        fig.update_layout(autosize=False,width=998,height=350,margin=dict(l=0,r=0,b=0,t=0,pad=4), paper_bgcolor="#ffffff"
                 )
-
-            )
-
-        ])
-
- 
-
-        # Update the layout
-
-        fig.update_layout(
-
-            autosize=False,
-
-            width=998,
-
-            height=350,
-
-            margin=dict(l=0, r=0, b=0, t=0, pad=4),
-
-            paper_bgcolor="#ffffff"
-
-        )
-
- 
-
-        st.header("")
-
+        
+        st.markdown('<h1 style="color: #00568D; font-size: 28px;">Demand Prediction Insights</h1>', unsafe_allow_html=True)
         st.plotly_chart(fig, use_container_width=True)
         col1, col2= st.columns([2.1,1.1])
         with col1:
